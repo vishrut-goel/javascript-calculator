@@ -1,6 +1,7 @@
 const defaultResult = 0;
 let currentResult = defaultResult;
 let logDescription = [];
+let enteredNumber;
 
 function getEnteredNumber() {
   return parseInt(userInput.value);
@@ -17,40 +18,49 @@ function logEntryAsObject(operationName, prevNumber, newNumber, result) {
   console.log(logDescription);
 }
 
-function add(num1, num2) {
-  enteredNumber = getEnteredNumber();
-  const initialNumber = currentResult;
-  const calcDesc = `${currentResult} + ${enteredNumber}`;
-  currentResult = currentResult + enteredNumber;
-  outputResult(currentResult, calcDesc);
-  logEntryAsObject("ADD", initialNumber, enteredNumber, currentResult);
+function add() {
+  performOperation("ADD");
 }
 
-function subtract(num1, num2) {
-  enteredNumber = getEnteredNumber();
-  const initialNumber = currentResult;
-  const calcDesc = `${currentResult} - ${enteredNumber}`;
-  currentResult = currentResult - enteredNumber;
-  outputResult(currentResult, calcDesc);
-  logEntryAsObject("SUBTRACT", initialNumber, enteredNumber, currentResult);
+function subtract() {
+  performOperation("SUBTRACT");
 }
 
-function multiply(num1, num2) {
-  enteredNumber = getEnteredNumber();
-  const initialNumber = currentResult;
-  const calcDesc = `${currentResult} * ${enteredNumber}`;
-  currentResult = currentResult * enteredNumber;
-  outputResult(currentResult, calcDesc);
-  logEntryAsObject("MULTIPLY", initialNumber, enteredNumber, currentResult);
+function multiply() {
+  performOperation("MULTIPLY");
 }
 
-function divide(num1, num2) {
+function divide() {
+  performOperation("DIVIDE");
+}
+
+function performOperation(operationType) {
   enteredNumber = getEnteredNumber();
   const initialNumber = currentResult;
-  const calcDesc = `${currentResult} / ${enteredNumber}`;
-  currentResult = currentResult / enteredNumber;
+  let mathOperator;
+  let calcDesc;
+
+  if (operationType == "ADD") {
+    mathOperator = "+";
+    currentResult = currentResult + enteredNumber;
+  } else if (operationType == "SUBTRACT") {
+    mathOperator = "-";
+    currentResult = currentResult - enteredNumber;
+  } else if (operationType == "MULTIPLY") {
+    mathOperator = "*";
+    currentResult = currentResult * enteredNumber;
+  } else {
+    mathOperator = "/";
+    currentResult = currentResult / enteredNumber;
+  }
+
+  calcDesc = logOutput(mathOperator, initialNumber, enteredNumber);
   outputResult(currentResult, calcDesc);
-  logEntryAsObject("DIVIDE", initialNumber, enteredNumber, currentResult);
+  logEntryAsObject(operationType, initialNumber, enteredNumber, currentResult);
+}
+
+function logOutput(mathOperator, currentResult, enteredNumber) {
+  return (desc = `${currentResult} ${mathOperator} ${enteredNumber}`);
 }
 
 addBtn.addEventListener("click", add);
