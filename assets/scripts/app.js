@@ -18,22 +18,6 @@ function logEntryAsObject(operationName, prevNumber, newNumber, result) {
   console.log(logDescription);
 }
 
-function add() {
-  performOperation("ADD");
-}
-
-function subtract() {
-  performOperation("SUBTRACT");
-}
-
-function multiply() {
-  performOperation("MULTIPLY");
-}
-
-function divide() {
-  performOperation("DIVIDE");
-}
-
 function performOperation(operationType) {
   enteredNumber = getEnteredNumber();
   const initialNumber = currentResult;
@@ -63,10 +47,10 @@ function logOutput(mathOperator, currentResult, enteredNumber) {
   return (desc = `${currentResult} ${mathOperator} ${enteredNumber}`);
 }
 
-addBtn.addEventListener("click", add);
+addBtn.addEventListener("click", performOperation.bind(this, 'ADD'));
 
-subtractBtn.addEventListener("click", subtract);
+subtractBtn.addEventListener("click", performOperation.bind(this, 'SUBTRACT'));
 
-multiplyBtn.addEventListener("click", multiply);
+multiplyBtn.addEventListener("click", performOperation.bind(this, 'MULTIPLY'));
 
-divideBtn.addEventListener("click", divide);
+divideBtn.addEventListener("click", performOperation.bind(this, 'DIVIDE'));
